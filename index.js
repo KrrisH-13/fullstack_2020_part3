@@ -2,7 +2,7 @@ const express = require('express');
 const PORT = 3001;
 
 const app = express();
-
+app.use(express.json())
 var phonebook = [
     { 
     "name": "Arto Hellas", 
@@ -57,6 +57,14 @@ app.delete('/api/persons/:id', (request,response) => {
     const id = Number(request.params.id);
     phonebook = phonebook.filter((contact)=> contact.id !== id);
     response.status(204).end();
+});
+
+
+app.post('/api/persons',(request, response) => {
+    var  contact = request.body;
+    const id = Math.floor(Math.random()*100000000);
+    contact['id'] = id;
+    response.json(contact);
 });
 
 app.listen(PORT, ()=>{
