@@ -30,6 +30,19 @@ app.get('/api/persons', (request,response)=>{
     response.json(phonebook);
 });
 
+
+app.get('/info',(request, response)=>{
+    var infoPage = `
+    <div>
+        <p>Phonebook has info for ${phonebook.length} people</p>
+        <br/>
+        <p>${new Date()}</p>
+    <div/>
+    `;
+    response.send(infoPage);
+});
+
+
 app.listen(PORT, ()=>{
     console.log(`App running on port${PORT}`);
 });
