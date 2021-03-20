@@ -61,10 +61,31 @@ app.delete('/api/persons/:id', (request,response) => {
 
 
 app.post('/api/persons',(request, response) => {
-    var  contact = request.body;
+    var  body = request.body;
+
+    if(!(body.name || body.number)){
+        return response.status(400).json({
+            error : 'Bad request. Missing name or number.'
+        });
+    }
+
+    if(phonebook.find((contact)=>contact.name===body.name)){
+        return response.status(400).json({
+            error: 'Name must be unique.'
+        });
+    }
+
+
     const id = Math.floor(Math.random()*100000000);
-    contact['id'] = id;
-    response.json(contact);
+
+    const person = {
+        'id' : id,
+        'name' : body.name,
+        'number' : body.number
+    }
+
+    phonebook =  phonebook.concat(person);
+    response.json(person);
 });
 
 app.listen(PORT, ()=>{
