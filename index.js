@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const PORT = 3001;
 
 const app = express();
@@ -25,6 +26,16 @@ var phonebook = [
     "id": 4
     }
 ];
+
+morgan.token('post-body',(req,res)=>{
+    // Return only if it is a post method call
+    if(req.method === 'POST'){
+        return JSON.stringify(req.body);
+    }
+    return ' ';
+});
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :post-body'));
 
 app.get('/api/persons', (request,response)=>{
     response.json(phonebook);
