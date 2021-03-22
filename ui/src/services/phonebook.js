@@ -1,18 +1,18 @@
 import axios from 'axios';
-const baseApiUrl = 'http://localhost:3001';
+const baseApiUrl = '/api';
 
 const getAll = () => {
-    const req = axios.get(baseApiUrl+'/api/persons');
+    const req = axios.get(baseApiUrl+'/persons');
     return req.then(response => response.data);
 }
 
 const addContact = (newContact)=>{
-    const req = axios.post(baseApiUrl+'/api/persons', newContact);
+    const req = axios.post(baseApiUrl+'/persons', newContact);
     return req.then(response => response.data);
 }
 
 const deleteContact = (id)=>{
-    const req = axios.delete(baseApiUrl + '/api/persons/' + id);
+    const req = axios.delete(baseApiUrl + '/persons/' + id);
     return req.then(response => response.data);
 }
 
